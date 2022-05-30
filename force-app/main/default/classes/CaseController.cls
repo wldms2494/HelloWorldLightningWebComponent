@@ -3,7 +3,7 @@ public with sharing class CaseController {
     public static List<Case> getCases() {
 
         return [
-            SELECT  Subject,CaseNumber,AccountId
+            SELECT  Subject,CaseNumber,AccountId,Reason, Status
             FROM Case
             WITH SECURITY_ENFORCED
             ORDER BY Subject
