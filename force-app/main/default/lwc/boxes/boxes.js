@@ -1,12 +1,19 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, wire , api} from 'lwc';
+import getRecordCounts from '@salesforce/apex/recordCount.getRecordCounts';
+import getClosedRecordCounts from '@salesforce/apex/recordCount.getClosedRecordCounts';
+import getPendingRecordCounts from '@salesforce/apex/recordCount.getPendingRecordCounts';
+import getNewRecordCounts from '@salesforce/apex/recordCount.getNewRecordCounts';
 
-export default class Boxes extends LightningElement {
+export default class Boxes extends  LightningElement {
 
+    @wire(getRecordCounts) count;
+    @wire(getClosedRecordCounts) closedCount;
+    @wire(getPendingRecordCounts) pendingCount;
+    @wire(getNewRecordCounts) newCount;
 
-    greeting = "hello";
-    name = {first: "john", last:" Doe"};
-    handleClick() {
-        this.greeting = "goodbye";
-        this.name.first="Ollie";
-    }
 }
+
+
+   
+
+    

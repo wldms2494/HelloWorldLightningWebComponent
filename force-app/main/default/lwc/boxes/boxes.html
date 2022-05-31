@@ -1,16 +1,12 @@
 <template>
 
-
-    <div>{greeting}, {name.first}!</div>
-<lightning-button label="Change Message" onclick={handleClick}>
-</lightning-button>
     <div>
         <lightning-layout vertical-align="center" class="x-large">
             <lightning-layout-item flexibility="auto" padding="around-small">
                 <div class="custom-box">
                     <p> 총</p>
     
-                    <p class="font"> 100</p>
+                    <p class="font"> {count.data} test</p>
     
     
     
@@ -20,24 +16,25 @@
                 <div class="custom-box">
                     <p>접수대기</p>
     
-                    <p class="font"> 5</p>
+                    <p class="font"> {pendingCount.data} test</p>
                 
                 </div>
             </lightning-layout-item>
             <lightning-layout-item flexibility="auto" padding="around-small">
                 <div class="custom-box">
                     <p>처리</p>
-                    <p class="font"> 95</p>
+                    <p class="font"> {closedCount.data} test</p>
     
                 </div>
             </lightning-layout-item>
             <lightning-layout-item flexibility="auto" padding="around-small">
                 <div class="custom-box">
                    <p>문의</p>
-                    <p class="font"> 100</p>
+                    <p class="font"> {newCount.data} test</p>
     
                 </div>
             </lightning-layout-item>
         </lightning-layout>
     </div>
+       
 </template>
