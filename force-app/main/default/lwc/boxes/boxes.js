@@ -10,7 +10,7 @@ export default class Boxes extends  LightningElement {
     @wire(getNewRecordCounts) newCount;
     @wire(getPendingRecordCounts) workingCount;
     @wire(getClosedRecordCounts) closedCount;
-
+      
 }
 
 
