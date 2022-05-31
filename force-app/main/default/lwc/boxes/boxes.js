@@ -14,9 +14,8 @@ export default class Boxes extends  LightningElement {
 
     async handleAlertClick(){
         await LightningAlert.open({
-            message: 'this is jsut alert message',
-            theme :'error',
-            label: 'Error!'
+            message: '당신은 숫자를 클릭했음',
+            label: 'Success!'
         });
     }
 
