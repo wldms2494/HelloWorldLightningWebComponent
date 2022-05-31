@@ -7,9 +7,9 @@ import getNewRecordCounts from '@salesforce/apex/recordCount.getNewRecordCounts'
 export default class Boxes extends  LightningElement {
 
     @wire(getRecordCounts) count;
-    @wire(getClosedRecordCounts) closedCount;
-    @wire(getPendingRecordCounts) pendingCount;
     @wire(getNewRecordCounts) newCount;
+    @wire(getPendingRecordCounts) workingCount;
+    @wire(getClosedRecordCounts) closedCount;
 
 }
 
