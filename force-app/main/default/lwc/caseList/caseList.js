@@ -1,5 +1,7 @@
 import { LightningElement, wire } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
+import { refreshApex } from '@salesforce/apex';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getCases from '@salesforce/apex/CaseController.getCases';
 import SUBJECT_FIELD from '@salesforce/schema/Case.Subject';
 import NUMBER_FIELD from '@salesforce/schema/Case.CaseNumber';
@@ -37,8 +39,41 @@ export default class CaseList extends NavigationMixin(LightningElement) {
     columns = COLUMNS;
     @wire(getCases)
     cases;
+
+    recordId;
     refreshTable;
 
 
-   
+    handleEvent = event =>{
+        const refreshRecordEvent = event.data.payload;
+        if(refreshRecordEvent.RecordId__c === this.recordId) {
+            this.recordId = '';
+            return refreshApex(this.refreshTable);
+        }
+
+    }
+
+    handleRowActions(event) {
+        const actionName = event.detail.action.name;
+        const row = event.detail.row;
+        this.recordId = row.Id;
+        switch(actionName){
+            case 'delete' :
+                this.delRow(row);
+                break;
+        }        
+    }
+
+
+    delRow(currentRow) {
+        deleteRow({objcase:currentRow}).then(
+            this.dispatchEvent(new ShowToastEvent({
+
+                title : 'success',
+                message : currentRow.Name + 'account deleted',
+                variant : 'success'
+            }
+               
+            )));
+    }   
 }
