@@ -1,4 +1,5 @@
 import { LightningElement, wire , api} from 'lwc';
+import LightningAlert from 'lightning/alert';
 import getRecordCounts from '@salesforce/apex/recordCount.getRecordCounts';
 import getClosedRecordCounts from '@salesforce/apex/recordCount.getClosedRecordCounts';
 import getPendingRecordCounts from '@salesforce/apex/recordCount.getPendingRecordCounts';
@@ -10,6 +11,15 @@ export default class Boxes extends  LightningElement {
     @wire(getNewRecordCounts) newCount;
     @wire(getPendingRecordCounts) workingCount;
     @wire(getClosedRecordCounts) closedCount;
+
+    async handleAlertClick(){
+        await LightningAlert.open({
+            message: 'this is jsut alert message',
+            theme :'error',
+            label: 'Error!'
+        });
+    }
+
       
 }
 
