@@ -1,4 +1,6 @@
-import { LightningElement, wire } from 'lwc';
+import { LightningElement, wire, track } from 'lwc';
+import { refreshApex } from '@salesforce/apex';
+
 import getRecordCounts from '@salesforce/apex/recordCount.getRecordCounts';
 import getClosedRecordCounts from '@salesforce/apex/recordCount.getClosedRecordCounts';
 import getPendingRecordCounts from '@salesforce/apex/recordCount.getPendingRecordCounts';
@@ -26,6 +28,11 @@ const COLUMNS = [
 
 
 export default class Voc extends LightningElement {
+    refreshStatus;
+    refreshTable;
+
+    @track isModalOpen = false;
+
 
     columns = COLUMNS;
     @wire(getRecordCounts) count;
@@ -36,4 +43,21 @@ export default class Voc extends LightningElement {
     @wire(getAllCases) allCases;
 
 
+
+    openModal() {
+        this.isModalOpen = true;
+    }
+    closeModal() {     
+        this.isModalOpen = false;
+    }   
+
+    handleSuccess(){
+        this.isLoading = true;         
+        this.isModalOpen = false;
+        setTimeout(() => {
+            this.isLoading = false;
+        }, 500);
+        refreshApex(this.refreshStatus);
+        refreshApex(this.refreshTable);        
+    }
 }
