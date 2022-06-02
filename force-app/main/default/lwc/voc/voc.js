@@ -1,4 +1,6 @@
 import { LightningElement, wire, track ,api} from 'lwc';
+import { NavigationMixin } from 'lightning/navigation';
+
 import { refreshApex } from '@salesforce/apex';
 
 import getRecordCounts from '@salesforce/apex/recordCount.getRecordCounts';
@@ -27,7 +29,7 @@ const COLUMNS = [
 
 
 
-export default class Voc extends LightningElement {
+export default class Voc extends NavigationMixin(LightningElement) {
     refreshStatus;
     refreshTable;
     vocList;
@@ -117,5 +119,16 @@ export default class Voc extends LightningElement {
         .catch(error=>{
             this.error=error;
         })
+    }
+
+
+    handleSuccess(){
+        this.isLoading = true;         
+        this.isModalOpen = false;
+        setTimeout(() => {
+            this.isLoading = false;
+        }, 500);
+        refreshApex(this.refreshStatus);
+        refreshApex(this.refreshTable);        
     }
 }

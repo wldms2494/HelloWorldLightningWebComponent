@@ -1,9 +1,16 @@
 <template>
-    <div>
+
+    <div class="spinner">
+        <template if:true={isLoading}>
+             <lightning-spinner alternative-text="Loading" variant="brand" size="middle">
+             </lightning-spinner>
+        </template>
+    </div>
         <lightning-button variant="brand-outline" label="생성" title="Primary action" onclick={openModal} class="slds-m-right_x-small"></lightning-button>
         <lightning-button variant="destructive" label="삭제" title="Destructive action" onclick={deleteRecord} class="slds-m-right_x-small"></lightning-button>
 
-     <div>
+   
+     <div class="slds-grid">
         <div class="custom-box"  data-id="All" onclick={VocList}>
             2nd Box
             <p > 총</p>
@@ -25,8 +32,23 @@
             <p class="font"> {closedCount.data}건</p>
         </div>   
      </div>
-    </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     <div>
         <lightning-datatable
         key-field="Id"
