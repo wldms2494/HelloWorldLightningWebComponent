@@ -1,5 +1,4 @@
 <template>
-
     <div>
         <lightning-layout vertical-align="center" class="x-large">
             <lightning-layout-item flexibility="auto" padding="around-small"
@@ -18,7 +17,7 @@
 
             
             <lightning-layout-item flexibility="auto" padding="around-small">
-                <div class="custom-box" data-id="New" onclick={showNewCases} >
+                <div class="custom-box" data-id="New" onclick = {VocList}>
                     <p>문의</p>
     
                     <p class="font"> {newCount.data}건</p>
@@ -41,5 +40,12 @@
             </lightning-layout-item>
         </lightning-layout>
     </div>
-       
+    <template if:true={allCases.data}>
+        <lightning-datatable
+        key-field="Id"
+        data={allCases.data}
+        columns={columns}
+        >
+    </lightning-datatable>
+    </template>  
 </template>

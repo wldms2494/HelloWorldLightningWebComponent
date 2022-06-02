@@ -1,6 +1,6 @@
 public with sharing class CaseController {
     @AuraEnabled(cacheable=true)
-    public static List<Case> getCases(String Status) {     
+    public static List<Case> getAllCases(String Status) {     
  
 
             return [
