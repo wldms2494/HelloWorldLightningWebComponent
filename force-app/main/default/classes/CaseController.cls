@@ -11,4 +11,16 @@ public with sharing class CaseController {
             ];
             
     }
+
+
+    @AuraEnabled(cacheable=true)
+    public static List<Case> getNewCases(String Status) {
+
+        return [
+            SELECT Subject, CaseNumber,AccountId,Reason,Status
+            FROM Case
+            WHERE Status='New'
+            ORDER BY Subject
+        ];
+    }
 }

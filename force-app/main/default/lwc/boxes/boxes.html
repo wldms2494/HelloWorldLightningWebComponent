@@ -5,8 +5,9 @@
             <lightning-layout-item flexibility="auto" padding="around-small"
             onclick={handleAlertClick}
             >
-                <div class="custom-box"  data-id="All" onclick={VocList}>
-                    <p> 총</p>
+                <div class="custom-box"  data-id="All" >
+                    2nd Box
+                    <p > 총</p>
     
                     <p class="font"> {count.data}건</p>
     
@@ -17,7 +18,7 @@
 
             
             <lightning-layout-item flexibility="auto" padding="around-small">
-                <div class="custom-box" data-id="New" onclick={VocList}>
+                <div class="custom-box" data-id="New" onclick={showNewCases} >
                     <p>문의</p>
     
                     <p class="font"> {newCount.data}건</p>
