@@ -3,55 +3,38 @@
         <lightning-button variant="brand-outline" label="생성" title="Primary action" onclick={openModal} class="slds-m-right_x-small"></lightning-button>
         <lightning-button variant="destructive" label="삭제" title="Destructive action" onclick={deleteRecord} class="slds-m-right_x-small"></lightning-button>
 
-        <lightning-layout vertical-align="center" class="x-large">
-            <lightning-layout-item flexibility="auto" padding="around-small"
-            onclick={handleAlertClick}
-            >
-                <div class="custom-box"  data-id="All" >
-                    2nd Box
-                    <p > 총</p>
-    
-                    <p class="font"> {count.data}건</p>
-    
-    
-    
-                </div>
-            </lightning-layout-item>
+     <div>
+        <div class="custom-box"  data-id="All" onclick={VocList}>
+            2nd Box
+            <p > 총</p>
+            <p class="font"> {count.data}건</p>
+        </div>
 
-            
-            <lightning-layout-item flexibility="auto" padding="around-small">
-                <div class="custom-box" data-id="New" onclick = {VocList}>
-                    <p>문의</p>
+        <div class="custom-box" data-id="New" onclick={VocList}>
+            <p>문의</p>
+            <p class="font"> {newCount.data}건</p>        
+        </div>  
     
-                    <p class="font"> {newCount.data}건</p>
-                
-                </div>
-            </lightning-layout-item>
-            <lightning-layout-item flexibility="auto" padding="around-small">
-                <div class="custom-box">
-                    <p>처리중</p>
-                    <p class="font"> {workingCount.data}건</p>
-    
-                </div>
-            </lightning-layout-item>
-            <lightning-layout-item flexibility="auto" padding="around-small">
-                <div class="custom-box">
-                   <p>처리</p>
-                    <p class="font"> {closedCount.data}건</p>
-    
-                </div>
-            </lightning-layout-item>
-        </lightning-layout>
+        <div class="custom-box" data-id="Working" onclick={VocList}>
+            <p>처리중</p>
+            <p class="font"> {workingCount.data}건</p>
+        </div>
+   
+        <div class="custom-box" data-id="Closed" onclick={VocList} >
+           <p>처리</p>
+            <p class="font"> {closedCount.data}건</p>
+        </div>   
+     </div>
     </div>
-    <template if:true={allCases.data}>
+
+    <div>
         <lightning-datatable
         key-field="Id"
-        data={allCases.data}
-        columns={columns}
-        >
-    </lightning-datatable>
-    </template> 
-    
+        data={vocList}
+        columns={columns}>
+        </lightning-datatable>    
+    </div>
+        
     
     <template if:true={isModalOpen}>
         <!-- Modal/Popup Box LWC starts here -->
@@ -72,20 +55,10 @@
                 <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
                     <lightning-record-edit-form object-api-name="Case" onsuccess={handleSuccess}>
                         <lightning-messages></lightning-messages>
-
-
-
-
                         <lightning-input-field field-name="CaseNumber"> </lightning-input-field>
                         <lightning-input-field field-name="Reason"> </lightning-input-field>
                         <lightning-input-field field-name="AccountId"> </lightning-input-field>
-                        <lightning-input-field field-name="Status"> </lightning-input-field>       
-
-
-
-
-
-                       
+                        <lightning-input-field field-name="Status"> </lightning-input-field>      
                         <lightning-input-field field-name="Subject"> </lightning-input-field>                        
                         <lightning-button type="submit" name="submit" class="b_right" label="저장"></lightning-button>                        
                     </lightning-record-edit-form>
