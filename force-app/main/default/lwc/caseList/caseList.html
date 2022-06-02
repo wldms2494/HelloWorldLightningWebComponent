@@ -2,9 +2,10 @@
         <template if:true={cases.data}>
             <lightning-datatable
             key-field="Id"
-            data={cases.data}
+            data={vocLists.data}
             columns={columns}
             onrowaction={handleRowActions}
+            
            
             >
         </lightning-datatable>

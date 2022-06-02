@@ -1,4 +1,4 @@
-import { LightningElement, wire } from 'lwc';
+import { LightningElement, wire , api} from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import { refreshApex } from '@salesforce/apex';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -9,6 +9,7 @@ import ACCOUNT_FIELD from '@salesforce/schema/Case.AccountId';
 import REASON_FIELD from '@salesforce/schema/Case.Reason';
 import STATUS_FIELD from '@salesforce/schema/Case.Status';
 import deleteRow from '@salesforce/apex/RowActionsHandler.deleteRow';
+
 
 //define row actions
 const actions = [
@@ -35,6 +36,8 @@ const COLUMNS = [
 ];
 
 export default class CaseList extends NavigationMixin(LightningElement) {
+    @api VocList
+    @api vocLists =[];
 
     columns = COLUMNS;
     @wire(getCases)
@@ -43,6 +46,8 @@ export default class CaseList extends NavigationMixin(LightningElement) {
     recordId;
     refreshTable;
 
+    vocLists;
+    record={};
 
     handleEvent = event =>{
         const refreshRecordEvent = event.data.payload;
@@ -75,5 +80,9 @@ export default class CaseList extends NavigationMixin(LightningElement) {
             }
                
             )));
-    }   
+    }  
+
+   
+
+  
 }
