@@ -30,14 +30,24 @@ const COLUMNS = [
 
 
 export default class Voc extends NavigationMixin(LightningElement) {
+
+    @api count=0;
+    @api newCount=0;
+    @api workingCount=0;
+    @api closedCount=0;
+
+
     refreshStatus;
     refreshTable;
     vocList;
+    @api vocStatus = 'All';
+
     recordId;
     record={};
     columns = COLUMNS;
 
 
+    @track isLoading = true;
     @track isModalOpen = false;
 
 
@@ -70,16 +80,19 @@ export default class Voc extends NavigationMixin(LightningElement) {
 
 
 
-    @wire(getCases, {Status: 'All'})
+    @wire(getCases, {Status: '$vocStatus'})
     InitVocList(result){
         this.refreshTable = result;
         if(result.data){
             let tempArr=[];
             result.data.forEach( record =>{
                 let temp = {};
-                temp.Id = record.Id;
+                //temp.Id = record.Id;
                 temp.CaseNumber = record.CaseNumber;
-                temp.AccountId = record.AccountId;
+                //temp.AccountId = record.AccountId;
+                if(record.AccountId!=null) {
+                    temp.AccountId = record.AccountId
+                } else {temp.AccountId = '';}
                 temp.Status = record.Status;
                 temp.Subject = record.Subject;
                 temp.Reason = record.Reason;
@@ -90,35 +103,15 @@ export default class Voc extends NavigationMixin(LightningElement) {
         }else if(result.error) {
             console.log('initVocList error!!', result.error);
         }
+        setTimeout(() => {
+            this.isLoading = false;
+        }, 1000);
     }
 
 
 
     VocList(event){
-        alert("clicked");
-        getCases({Status:event.target.dataset.id})
-        .then(result=>{
-            this.refreshTable=result;
-            let tempArr = [];
-            result.forEach(record =>{
-                let temp={};
-               temp.Id = record.Id;
-               temp.CaseNumber = record.CaseNumber;
-               temp.AccountId = record.AccountId;
-               temp.Status = record.Status;
-               temp.Subject = record.Subject;
-               temp.Reason = record.Reason;
-               tempArr.push(temp);
-               console.log("casenumber" + temp.CaseNumber);
-               
-            })
-
-            this.vocList=tempArr;
-
-        })
-        .catch(error=>{
-            this.error=error;
-        })
+        this.vocStatus = event.target.dataset.id;        
     }
 
 
